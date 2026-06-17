@@ -7,3 +7,9 @@ config.json
 
 # 环境变量
 .env
+
+# 打包产物
+*.tar.gz
+
+# 工具
+.ace-tool/
