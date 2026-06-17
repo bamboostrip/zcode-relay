@@ -1,0 +1,19 @@
+# 绝不能进镜像的：含真实 key 的配置
+config.json
+*.local.json
+
+# 编译产物
+target/
+
+# 版本控制
+.git/
+.gitignore
+
+# Docker 自身文件
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# 文档
+README.md
+*.md

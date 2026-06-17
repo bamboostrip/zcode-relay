@@ -1,0 +1,25 @@
+{
+  "_comment": "复制本文件为 config.json 后修改。api_key 可填 'auto'（本机装了 ZCode 时自动读取）或直接粘贴 Coding Plan key。",
+
+  "api_key": "auto",
+
+  "_comment_host": "0.0.0.0 = 允许其他机器/容器访问（Docker 部署必填）；127.0.0.1 = 仅本机。",
+  "host": "0.0.0.0",
+  "port": 8787,
+
+  "_comment_auth": "外部工具调用本服务时要带的 key。强烈建议设置，否则同网段任何人都能白嫖你的额度。",
+  "management_key": "change-this-to-a-long-random-secret",
+
+  "anthropic_base": "https://open.bigmodel.cn/api/anthropic",
+  "openai_base": "https://open.bigmodel.cn/api/coding/paas/v4",
+
+  "zcode_app_version": "3.1.0",
+  "zcode_agent": "glm",
+  "zcode_title": "Z Code@electron",
+  "zcode_referer": "https://zcode.z.ai",
+
+  "_comment_models": "权威清单：你确定可用的模型。启动时与上游 /v1/models 并集去重后写回本文件。新模型出现时加一行即可，无需改代码。",
+  "models": ["GLM-5.2", "glm-5-turbo"],
+  "upstream_timeout": 300,
+  "log_level": "INFO"
+}

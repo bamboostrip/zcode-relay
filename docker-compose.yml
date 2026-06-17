@@ -1,0 +1,35 @@
+# zcode-relay (Rust) docker-compose 部署
+#
+# 使用：
+#   1. cp config.example.json config.json，编辑填入 api_key / management_key
+#   2. docker compose up -d --build
+#   3. docker compose logs -f        查看日志
+#      docker compose restart        改完 config.json 后重启生效
+#      docker compose down           停止
+
+services:
+  zcode-relay:
+    build: .
+    container_name: zcode-relay
+    restart: unless-stopped
+
+    ports:
+      - "8787:8787"
+
+    # config.json 挂载为可写：服务会把合并后的模型清单写回本文件
+    volumes:
+      - ./config.json:/data/config.json
+
+    # Rust 静态二进制极省内存：空载 ~3-5MB，5 并发峰值 ~8-15MB。
+    # 64MB 留足余量。
+    mem_limit: 64m
+    mem_reservation: 16m
+
+    environment:
+      - RUST_LOG=info
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

@@ -1,0 +1,47 @@
+[package]
+name = "zcode-relay"
+version = "3.0.0"
+edition = "2021"
+description = "Forward ZCode Coding Plan quota as a standard API (Anthropic + OpenAI compatible)"
+
+[dependencies]
+# 异步运行时
+tokio = { version = "1", features = ["full"] }
+# HTTP 服务端（SSE 原生支持）
+axum = "0.8"
+# HTTP 上游客户端（连接池、HTTP/2、流式）
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "http2", "json", "stream"] }
+# 字节缓冲（axum/reqwest 共用）
+bytes = "1"
+# 序列化
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# 错误处理
+anyhow = "1"
+thiserror = "2"
+# 日志
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+# 异步工具
+futures-util = "0.3"
+async-stream = "0.3"
+# UUID（身份 header 用）
+uuid = { version = "1", features = ["v4"] }
+# 随机数（jitter）
+rand = "0.9"
+# 时间
+chrono = "0.4"
+
+[dev-dependencies]
+# HTTP mock（测试上游）
+mockito = "1"
+# 临时文件
+tempfile = "3"
+
+# 发布构建：极致压缩体积 + 内存占用
+[profile.release]
+opt-level = "z"      # 最小体积优化
+lto = true           # 链接时优化
+codegen-units = 1    # 单单元，更好优化
+strip = true         # 去符号表
+panic = "abort"      # panic 不 unwind，省体积
